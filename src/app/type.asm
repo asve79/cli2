@@ -3,17 +3,24 @@
 ; 2013,2016 © breeze/fishbone crew
 ;---------------------------------------
 ; type - show txt file application
-;--------------------------------------		
+;--------------------------------------
 		org	#c000-4
 
 typeBufferSize	equ	#10					; 16*512 = 8192 Размер буфера в блоках по (512кб)
 
+		ifdef OS_WINDOWS
+		include "system\constants.asm"			; Константы
+		include "system\api.h.asm"			; Список комманд CLi² API
+		include "system\errorcodes.asm"			; коды ошибок
+		include "drivers\drivers.h.asm"			; Список комманд Drivers API
+		else
 		include "system/constants.asm"			; Константы
 		include "system/api.h.asm"			; Список комманд CLi² API
 		include "system/errorcodes.asm"			; коды ошибок
 		include "drivers/drivers.h.asm"			; Список комманд Drivers API
+		endif
 
-appStart	
+appStart
 		db	#7f,"CLA"				; Command Line Application
 
 		xor	a
@@ -44,7 +51,7 @@ typeFileCheck	ld	a,#00
 		call	cliKernel
 		ld	hl,typeFileError_1+1
 		ld	(hl),de
-		ex	de,hl		
+		ex	de,hl
 
 		ld	de,typeBuffer
 		ld	b,typeBufferSize
@@ -70,7 +77,7 @@ typeLoop	ld	a,printString
 		call	cliKernel
 		cp	#ff					; конец файла?
 		jr	nz,typeLoop
-		
+
 		ex	af,af'
 		cp	eFileEnd
 		jr	nz,typeLoop
@@ -109,7 +116,7 @@ typeVer		ld	hl,typeVersionMsg
 typeInfo	ld	hl,typeUsageMsg
 		ld	a,printOkString
 		call	cliKernel
-		
+
 		ld	a,#01
 		ld	(typeFileCheck+1),a
 		ret
@@ -189,4 +196,4 @@ typeBufferEnd	db	#0d,#00
 		ds	10, #00
 appEnd	nop
 
-		SAVEBIN "install/bin/type", appStart, appEnd-appStart
+		SAVEBIN "../../install/bin/type", appStart, appEnd-appStart

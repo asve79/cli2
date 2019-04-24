@@ -14,21 +14,21 @@ sCliKernel
 		include "budder.asm"
 		include "dma_dis.asm"
 ; 		include "fat_dis.asm"
-		
+
 		include "commands.asm"
 		include "operators.asm"
 		include "ls.asm"
 		include "ll.asm"
 		include "run.asm"
 		include "sh.asm"
-		
+
 		include "hex2int.asm"
 
 		include "messages.asm"
 		include "cliparams.asm"
 		include "commands.h.asm"
 		include "operators.h.asm"
-		
+
 		include "tsconf.h.asm"
 		include "fat.h.asm"
 
@@ -40,4 +40,4 @@ eCliKernel	nop
 	DISPLAY "kernel size",/A,eCliKernel-sCliKernel
 	DISPLAY "kernel end",/A,eCliKernel
 	DISPLAY "-------------------------------------"
-	SAVEBIN "install/system/kernel.sys", sCliKernel, eCliKernel-sCliKernel
+	SAVEBIN "../../install/system/kernel.sys", sCliKernel, eCliKernel-sCliKernel

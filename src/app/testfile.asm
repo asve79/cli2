@@ -3,15 +3,21 @@
 ; 2014,2016 © breeze/fishbone crew
 ;---------------------------------------
 ; testfile - тестовое приложение для проверки наличия файла/директории
-;--------------------------------------		
+;--------------------------------------
 		org	#c000-4
 
+		ifdef OS_WINDOWS
+		include "system\constants.asm"			; Константы
+		include "system\api.h.asm"			; Список комманд CLi² API
+		include "system\errorcodes.asm"			; коды ошибок
+		include "drivers\drivers.h.asm"			; Список комманд Drivers API
+		else
 		include "system/constants.asm"			; Константы
 		include "system/api.h.asm"			; Список комманд CLi² API
 		include "system/errorcodes.asm"			; коды ошибок
 		include "drivers/drivers.h.asm"			; Список комманд Drivers API
-
-appStart	
+		endif
+appStart
 		db	#7f,"CLA"				; Command Line Application
 
 		ld	a,(hl)
@@ -34,7 +40,7 @@ mkLoop		ld	a,(hl)
 		ld	a,(hl)
 		cp	#00
 		jr	z,checkFileName
-		
+
 		inc	b
 		ld	a,b
 		cp	12
@@ -116,4 +122,4 @@ fileMsg1	db	pQuoteClose," already exist.", 16,cRestore,#0d,#00
 
 appEnd	nop
 
-		SAVEBIN "install/bin/testfile", appStart, appEnd-appStart
+		SAVEBIN "../../install/bin/testfile", appStart, appEnd-appStart

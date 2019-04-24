@@ -13,7 +13,7 @@ bufferSize	equ	255					; Размер буфера для вывода
 		include "system/errorcodes.asm"			; коды ошибок
 		include "drivers/drivers.h.asm"			; Список комманд Drivers API
 
-appStart	
+appStart
 		db	#7f,"CLA"				; Command Line Application
 
 								; не надо пропускать пробелы нарушается рисунок ASCII начинающийся с пробелов
@@ -48,7 +48,7 @@ echoStr_02	inc	hl
 		jr	echoStr_00
 
 echoPrint	ld	(de),a
-		
+
 		ld	hl,echoBuffer
 quoteFlag	ld	a,#00
 		cp	#01
@@ -78,4 +78,4 @@ echoBuffer	ds	eBufferSize, #00
 
 appEnd	nop
 
-		SAVEBIN "install/bin/echo", appStart, appEnd-appStart
+		SAVEBIN "../../install/bin/echo", appStart, appEnd-appStart

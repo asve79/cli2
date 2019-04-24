@@ -11,7 +11,7 @@
 		include "system/errorcodes.asm"			; коды ошибок
 		include "drivers/drivers.h.asm"			; Список комманд Drivers API
 
-appStart	
+appStart
 		db	#7f,"CLA"				; Command Line Application
 
 		call	appVer
@@ -24,7 +24,7 @@ appStart
 appLoop		halt
 		ld	a,getKeyWithShift
 		call	cliKernel
-		
+
 		cp	aEsc
 		jp	z,appExit
 
@@ -45,16 +45,16 @@ appExit		ld	a,editInit
 appCallBack
 		ret
 ;---------------------------------------------
-appVer		ld	hl,appVersionMsg			
+appVer		ld	hl,appVersionMsg
 		ld	a,printAppNameString
 		call	cliKernel
 
 		ld	hl,appCopyRMsg
 		ld	a,printCopyrightString
 		jp	cliKernel
-		
+
 ;---------------------------------------------
-appRun		ld	hl,appRunMsg			
+appRun		ld	hl,appRunMsg
 		ld	a,printString
 		jp	cliKernel
 ;---------------------------------------------
@@ -73,4 +73,4 @@ appExitMsg	db	15,5,"Exit.",#0d
 ;---------------------------------------------
 appEnd	nop
 
-		SAVEBIN "install/demo/boing/boing", appStart, appEnd-appStart
+		SAVEBIN "../../install/demo/boing/boing", appStart, appEnd-appStart

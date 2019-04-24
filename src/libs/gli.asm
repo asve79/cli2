@@ -27,4 +27,4 @@ gliVersion	dw	#000A				; v 0.10
 
 eGLi	nop
 
-	SAVEBIN "install/system/gli.sys", sGLi, eGLi-sGLi
+	SAVEBIN "../../install/system/gli.sys", sGLi, eGLi-sGLi

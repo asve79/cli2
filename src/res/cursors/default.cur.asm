@@ -6,7 +6,7 @@
 		org	#C000
 sCursor
 		db	#7f,"CUR"				; Cursor signature
-		db	16					; Ширина курсора кратная 8! 
+		db	16					; Ширина курсора кратная 8!
 		db	16					; Высота курсора кратная 8!
 		db	5					; Количество фаз
 miceCursor
@@ -98,4 +98,4 @@ miceCursor
 
 eCursor	nop
 
-	SAVEBIN "install/system/res/cursors/default.cur", sCursor, eCursor-sCursor
+	SAVEBIN "../../../install/system/res/cursors/default.cur", sCursor, eCursor-sCursor

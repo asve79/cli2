@@ -124,4 +124,4 @@ drvVersion	dw	#0004				; v 0.04
 
 eCliDrivers	nop
 
-	SAVEBIN "install/system/drivers.sys", sCliDrivers, eCliDrivers-sCliDrivers
+	SAVEBIN "../../install/system/drivers.sys", sCliDrivers, eCliDrivers-sCliDrivers

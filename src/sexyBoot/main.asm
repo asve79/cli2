@@ -21,7 +21,7 @@ sSexyBoot	ld	sp,kernelStack				; #5ffe
 		call	txtModeInit
 
 		call	storePalette
-		
+
 		ld	a,vPageTXT0+#20				; Включаем страницу с текстовым режимом
 		call	setMemBank3
 
@@ -74,12 +74,12 @@ sSexyBoot	ld	sp,kernelStack				; #5ffe
 
 		call	fStart+fDeviceInit
 		jp	nz,devNotFound
-		
+
 		call	fStart+fFatInit
 		jp	nz,fatNotFound
-		
+
 		call	fStart+fSetRoot				; SET ROOT DIR
-		
+
 		ld	bc,#fbfe
 		in	a,(c)
 		bit	1,a					; Если удерживается «W» значит надо грузить Wild Commander
@@ -254,7 +254,7 @@ pathNotFound	ld	a,#03
 ; #01 - 1й графичекский видео буфер (16 страниц)		#10 + #20 = #30
 ; #02 - 2й графичекский видео буфер (16 страниц)		#20 + #20 = #40
 ; #03 - 3й графичекский видео буфер (16 страниц)		#30 + #20 = #50
-		
+
 setVideoBuffer	sla 	a
 		sla 	a
 		sla 	a
@@ -303,7 +303,7 @@ clearLoop	push	bc,de,hl
 ;---------------------------------------
 txtModeInit	ld	a,vPageTXT0+#21				; Включаем страницу с нашим фонтом
 		call	setMemBank3
-		
+
 		ld	hl,defaultFont				; Загружаем шрифт
 		ld	de,#c000
 		ld	bc,2048
@@ -317,7 +317,7 @@ txtModeInit	ld	a,vPageTXT0+#21				; Включаем страницу с наш�
 		ld 	de,#0000				; Память с палитрой замапливается на адрес #0000
 		call	dupPal
 
-		ld 	bc,tsFMAddr			
+		ld 	bc,tsFMAddr
 		xor	a					; Запретить, Bit 4 - FM_EN сброшен
 		out	(c),a
 		ret
@@ -375,10 +375,10 @@ defaultFont	incbin	"..\rc\fonts\8x8\default.bin"
 sDriver		incbin "..\rc\bin\WDFCVBI2.COD"
 eDriver		nop
 eSexyBoot	nop
-	
+
 	DISPLAY "-------------------------------------"
 	DISPLAY "boot size",/A,eSexyBoot-sSexyBoot
 	DISPLAY "boot end",/A,eSexyBoot
 	DISPLAY "-------------------------------------"
 
-	SAVEHOB "install/boot.$c", "BOOT.C", sSexyBoot, eSexyBoot-sSexyBoot
+	SAVEHOB "../../install/boot.$c", "BOOT.C", sSexyBoot, eSexyBoot-sSexyBoot

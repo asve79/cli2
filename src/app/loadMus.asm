@@ -6,7 +6,7 @@
 ;---------------------------------------
 
 		org	#c000-4
-		
+
 		include "system/constants.asm"			; Константы
 		include "system/api.h.asm"			; Список комманд CLi² API
 		include "system/errorcodes.asm"			; коды ошибок
@@ -73,11 +73,11 @@ musFileName	ld	de,#0000				; Имя файла
 		ld	a,eatSpaces
 		call	cliKernel
 		ex	de,hl
-		
+
 		push	hl
 		call	musPrtFilename				; вывод надписи «пытаемся загрузить»
 		pop	hl
-		
+
 		ld	de,musBuffer
 		ld	c,appBank
 		xor	a
@@ -98,7 +98,7 @@ musFileName	ld	de,#0000				; Имя файла
 		ld	a,uploadAyModule
 		ld	hl,musBuffer
 		call	cliKernel
-		
+
 		ld	a,pt3init
 		call	cliDrivers
 
@@ -110,9 +110,9 @@ musFileName	ld	de,#0000				; Имя файла
 enableAutoPlay	ld	a,#00
 		cp	#01
 		ret	nz
-		
+
 		call	musPrtPlay
-		
+
 		ld	a,enableAyPlay
 		call	cliKernel
 
@@ -129,7 +129,7 @@ musShowInfo	call	musLoaderVer				; Вывод информации о прогр
 musLoaderVer	ld	a,(musPrintStatus+1)
  		cp	#01
  		ret	z
-		ld	hl,musVersionMsg			
+		ld	hl,musVersionMsg
 		ld	a,printAppNameString
 		call	cliKernel
 
@@ -154,7 +154,7 @@ musLoaderPlay	ld	hl,musTryPlay
 
 		ld	a,enableAyPlay				; Запуск воспроизведения
 		call	cliKernel
-		
+
 		call	skipCheckFile
 		jr	musExit
 
@@ -248,7 +248,7 @@ fileNotSet	ld	hl,noFileMsg
 ;---------------------------------------------
 musVersionMsg	db	"Music loader for AY8910/12, YM2203 & TS Sound Chip v0.06",#00
 musCopyRMsg	db	"2016 ",pCopy," Breeze\\\\Fishbone Crew",#0d,#00
-		
+
 musUsageMsg	db	15,csOk,"Usage: loadmus [switches] filename.(pt3|pt2|mtc|tfc|ts)",#0d
 		db	16,cRestore,"  -a ",15,csInfo,"\tautoplay. allow to automatically play the file after upload",#0d
 		db	16,cRestore,"  -s ",15,csInfo,"\tsilent mode. additional information is not displayed",#0d
@@ -316,4 +316,4 @@ musBuffer	nop
 
 ; 		DISPLAY "zzz",/A,zzz
 
-		SAVEBIN "install/bin/loadmus", appStart, appEnd-appStart
+		SAVEBIN "../../install/bin/loadmus", appStart, appEnd-appStart

@@ -33,10 +33,10 @@ taFont		dw	#0000					; 2 байта смещение от текущего ад�
 								; Мета-данные:
 		dw	neFont-nFont				; 2 байта длина название шрифта
 nFont		db	"BGE",#00				; * байт название шрифта, оканчивающихся кодом #00
-neFont		
+neFont
 		dw	aeFont-aFont				; 2 байта длина автора шрифта
 aFont		db	"Wizard^dt",#00				; * байт автор шрифта, оканчивающихся кодом #00
-aeFont		
+aeFont
 		dw	deFont-dFont				; 2 байта длина описания шрифта
 dFont		db	"Font from Burial GFX Editor",#00 	; * байт описание шрифта, оканчивающихся кодом #00
 deFont
@@ -49,6 +49,6 @@ eFont
 
 ; 	DISPLAY "bFont-taFont",/A,bFont-taFont
 
-	SAVEBIN "install/system/res/fonts/8x8/bge.fnt", sFont, eFont-sFont
+	SAVEBIN "../../../../install/system/res/fonts/8x8/bge.fnt", sFont, eFont-sFont
 
 	ENDMODULE

@@ -12,7 +12,7 @@ fntBufferSize	equ	16					; 16*512 = 8192 Размер буфера в блока
 		include "system/api.h.asm"			; Список комманд CLi² API
 		include "system/errorcodes.asm"			; коды ошибок
 		include "drivers/drivers.h.asm"			; Список комманд Drivers API
-appStart	
+appStart
 		db	#7f,"CLA"				; Command Line Application
 								; На входе в HL адрес начала строки с параметрами
 		ex	de,hl
@@ -52,7 +52,7 @@ appStart
 		ld	a,(hl)
 		cp	#7f					; Сигнатура #7f + FNT
 		jp	nz,wrongFile
-		
+
 		inc	hl
 		ld	a,(hl)
 		cp	"F"
@@ -133,7 +133,7 @@ fntSlyle_01	cp	#01					; #x1 - наклонный шрифт (italic)
 
 fntSlyle_02	cp	#02					; #x2 - жирный шрифт (bold)
 		jr	nz,fntSlyle_03
-		
+
 		ld	hl,fntStyleMsgI				; #x3 - наклонный + жирный
 		call	fntPrint
 		jr	fntSlyle_A
@@ -420,7 +420,7 @@ wrongFile	ld	hl,wrongFileMsg
 ;---------------------------------------------
 fontVersionMsg	db	"Font loader for CLI2 v0.14",#00
 fontCopyRMsg	db	"2013,2016 ",pCopy," Breeze\\\\Fishbone Crew",#0d,#00
-		
+
 fontUsageMsg	db	"Usage: loadfont [switches] filename.fnt",#0d
 		db	16,cRestore,"  -g ",15,csInfo,"\tgraphics mode. load fonts into graphics memory (default console)",#0d
 		db	16,cRestore,"  -s ",15,csInfo,"\tsilent mode. additional information is not displayed",#0d
@@ -481,8 +481,8 @@ appEnd		nop
 
 		org	#e000
 fntBuffer	nop
-		
+
 ; 		DISPLAY "fontAddrStart",/A,fontAddrStart
 ; 		DISPLAY "fontWrongVer",/A,fontWrongVer
 
-		SAVEBIN "install/bin/loadfont", appStart, appEnd-appStart
+		SAVEBIN "../../install/bin/loadfont", appStart, appEnd-appStart

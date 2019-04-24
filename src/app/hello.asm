@@ -11,18 +11,18 @@
 		include "system/errorcodes.asm"			; коды ошибок
 		include "drivers/drivers.h.asm"			; Список комманд Drivers API
 
-appStart	
+appStart
 		db	#7f,"CLA"				; Идентификатор приложения CLA (Command Line Application)
 
 		call	appVer					; Выводим версию приложения и авторские права
-		
+
 		ld	hl,appQuetionMsg			; Выводим сообщение с вопросом 1
 		call	appPrint
 
 		ld	hl,appQuetionMsg_			; Выводим строку (y/n)
 		ld	a,printInputYN
 		call	cliKernel
-		
+
 		cp	"y"					; Если нажали "y" (или Y), то выводим сообщение и продолжаем
 		jr	z,appCont
 
@@ -46,7 +46,7 @@ appCont		ld	hl,appYesMsg
 		ld	hl,appIgnoreMsg
 		cp	"i"					; Если нажали I
 		jr	z,appCont2
-		
+
 		ld	hl,appAbortMsg
 		jr	appLast
 
@@ -70,7 +70,7 @@ appLoop		halt
 ;---------------------------------------------
 		; Убираем за собой «мусор»
 appExit		ld	a,editInit				; Переинициализируем строку ввода
-		call	cliKernel				
+		call	cliKernel
 
 		ld	hl,appExitMsg				; Выводим строку, что приложение завершило работу
 		ld	a,printString
@@ -82,7 +82,7 @@ appExit		ld	a,editInit				; Переинициализируем строку в
 ;---------------------------------------------
 appCallBack							; При вызове данной функции сюда в аккумуляторе передаётся номер
 								; активного экрана (ALT+F1 = 0, ALT+F2 = 1, итд)
-		
+
 		ld	h,0					; Преобразуем число (4bit 0-16) в строку
 		ld	l,a
 		ld	de,appInfoMsgN
@@ -92,14 +92,14 @@ appCallBack							; При вызове данной функции сюда в 
 		ld	hl,appInfoMsg				; Выводим сообщение, что экран был переключен
 		jp	appPrint
 ;---------------------------------------------
-appVer		ld	hl,appVersionMsg			; Выводим версию приложения	
+appVer		ld	hl,appVersionMsg			; Выводим версию приложения
 		ld	a,printAppNameString			; Немного модифицированная процедура печати, специально для AppName
 		call	cliKernel
 
 		ld	hl,appCopyRMsg				; Выводим информацию об авторских правах
 		ld	a,printCopyrightString			; Немного модифицированная процедура печати, специально для Copyright
 		jp	cliKernel
-		
+
 ;---------------------------------------------
 appRun		ld	hl,appRunMsg				; Выводим приложение завершило работу
 appPrint	ld	a,printString				; Обычная печать строки
@@ -120,7 +120,7 @@ appQuetionMsg2	db	15,csHelp,#0d
 		db	"This is second test question:",#0d
 		db	16,cRestore
 		db	#00
-		
+
 appQuetionMsg2_	db	"Application error (Retry/Ignore/Abort)?",#00
 
 appRunMsg	db	15,csHelp,#0d
@@ -154,4 +154,4 @@ appInfoMsgN	db	"   "
 ;---------------------------------------------
 appEnd	nop
 
-		SAVEBIN "install/bin/hello", appStart, appEnd-appStart
+		SAVEBIN "../../install/bin/hello", appStart, appEnd-appStart

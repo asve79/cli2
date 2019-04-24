@@ -14,14 +14,14 @@ bitmapYSm	equ	#00					; смещение по оси Y внутри bitmap де�
 								; 24 * 256 (если 16 цветные спрайты) получаем смещение #1800
 								; данные спрайта начнутся с #d800
 
-BoingStart	
+BoingStart
 		db	#7f,"CLA"				; Command Line Application
 
 		ld	hl,boingMsg
 		call	printString
-		
+
 		ld	hl,infoMsg
-		call	printString		
+		call	printString
 
 		call	clearGfxScreen
 
@@ -48,7 +48,7 @@ BoingStart
 
 		ld	hl,appRunMsg
 		call	printString
-		
+
 		halt
 		call	printWW					; печать
 
@@ -72,14 +72,14 @@ BoingStart
 sprMove		halt
 
 		call	updateSprite
-		call	printWW	
+		call	printWW
 
 		ld	hl,(timeCount)
 		inc	hl
 		ld	(timeCount),hl
 		ld	de,timeCountMsg
 		call	int2str
-	
+
 		ld 	hl,boingPosMsg
 		call	printInLine
 
@@ -108,7 +108,7 @@ tableAddr	ld	hl,jumpTable
 		ld	d,a
 		inc	hl
 		call	setSpriteY
-		
+
 		push	hl
 		ex	de,hl
 		ld	de,posYMsg
@@ -137,7 +137,7 @@ BoingStop	call	editInit
 		xor	a
 		call	setScreen
 		call	clearGfxScreen
-		
+
 		ld	hl,appExitMsg
 		call	printString
 		xor	a			; no error, clean exit!
@@ -270,4 +270,4 @@ jumpPart	ds	tableHalf,#00
 jumpEnd		nop
 BoingEnd	nop
 
-		SAVEBIN "install/demo/boing", BoingStart, BoingEnd-BoingStart
+		SAVEBIN "../../install/demo/boing", BoingStart, BoingEnd-BoingStart

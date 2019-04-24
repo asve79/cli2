@@ -8,7 +8,7 @@
 modBufferSize	equ	32					; 32*512 = 16384 Размер буфера в блоках по (512кб)
 
 		org	#c000-4
-		
+
 		include "system/constants.asm"			; Константы
 		include "system/api.h.asm"			; Список комманд CLi² API
 		include "system/errorcodes.asm"			; коды ошибок
@@ -58,7 +58,7 @@ startGS		call	modPrtDetect
 
 		ld	a,gsInit				; Инициализируем (hard reset) General Sound
 		call	cliDrivers
-		
+
 		ld	a,gsDetect				; ?
 		call	cliDrivers
 
@@ -87,7 +87,7 @@ zzz		call	cliKernel
 		cp	#ff					; Если на выходе #ff = ошибка
 		jp	z,modPrtError
 
-		call	modPrtOk					
+		call	modPrtOk
 ;---------------
 		call	modPrtUpload
 
@@ -121,17 +121,17 @@ uploadGsNext	ld	a,loadNextPart				; Загрузить следующую час
 		call	cliDrivers
 
 		ld	a,gsCloseStream				; Закрываем поток
-		call	cliDrivers	
-;---------------		
+		call	cliDrivers
+;---------------
 		call	modPrtOk
 
 		ld	a,gsResetTrack				; Переустанавливаем номер текущего трека
-		call	cliDrivers	
+		call	cliDrivers
 
 enableAutoPlay	ld	a,#00
 		cp	#01
 		ret	nz
-		
+
 		call	modPrtPlay
 
 		ld	a,gsPlay				; Запуск воспроизведения
@@ -147,7 +147,7 @@ modShowInfo	call	modLoaderVer				; Вывод информации о прогр
 		call	modLoaderHelp
 		ret
 
-modLoaderVer	ld	hl,modVersionMsg			
+modLoaderVer	ld	hl,modVersionMsg
 		ld	a,printAppNameString
 		call	cliKernel
 
@@ -181,7 +181,7 @@ modLoaderCont	ld	hl,modTryCont
 		call	cliDrivers
 		call	checkStatus
 		jr	modExit
-		
+
 modLoaderReset	ld	hl,modTryReset
 		call	modPrintStatus
 		ld	a,gsWarmRestart				; Сброс карты
@@ -303,7 +303,7 @@ fileNotSet	ld	hl,noFileMsg
 ;---------------------------------------------
 modVersionMsg	db	"MOD file loader for (Neo)GS Card v0.20",#00
 modCopyRMsg	db	"2013,2016 ",pCopy," Breeze\\\\Fishbone Crew",#0d,#00
-		
+
 modUsageMsg	db	15,csOk,"Usage: loadmod [switches] filename.mod",#0d
 		db	16,cRestore,"  -a ",15,csInfo,"\tautoplay. allow to automatically play the file after upload",#0d
 		db	16,cRestore,"  -s ",15,csInfo,"\tsilent mode. additional information is not displayed",#0d
@@ -390,4 +390,4 @@ modBufferEnd	nop
 ; 		DISPLAY "modBufferEnd",/A,modBufferEnd
 ; 		DISPLAY "zzz",/A,zzz
 
-		SAVEBIN "install/bin/loadmod", appStart, appEnd-appStart
+		SAVEBIN "../../install/bin/loadmod", appStart, appEnd-appStart

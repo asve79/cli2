@@ -11,7 +11,7 @@
 		include "system/errorcodes.asm"			; коды ошибок
 		include "drivers/drivers.h.asm"			; Список комманд Drivers API
 
-appStart	
+appStart
 		db	#7f,"CLA"				; Command Line Application
 								; На входе в HL адрес начала строки с параметрами
 		ld	a,(hl)
@@ -48,7 +48,7 @@ sleep_01b	halt
 unlimitWait	ld	a,#00
 		cp	#01
 		jr	z,unlimitWait_1
-		
+
 unlimitWait_0	ld	a,printContinue
 		call	cliKernel
 
@@ -65,7 +65,7 @@ appShowInfo	call	appVer					; Вывод информации о програм�
 		call	appHelp
 		jp	appExit
 
-appVer		ld	hl,appVersionMsg			
+appVer		ld	hl,appVersionMsg
 		ld	a,printAppNameString
 		call	cliKernel
 
@@ -99,4 +99,4 @@ keyTable
 		dw	setSilentMode
 appEnd	nop
 
-		SAVEBIN "install/bin/sleep", appStart, appEnd-appStart
+		SAVEBIN "../../install/bin/sleep", appStart, appEnd-appStart

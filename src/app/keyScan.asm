@@ -10,7 +10,7 @@
 		include "system/api.h.asm"			; Список комманд CLi² API
 		include "system/errorcodes.asm"			; коды ошибок
 		include "drivers/drivers.h.asm"			; Список комманд Drivers API
-appStart	
+appStart
 		db	#7f,"CLA"				; Command Line Application
 								; На входе в HL адрес начала строки с параметрами
 		ld	hl,versionMsg
@@ -30,7 +30,7 @@ appLoop		halt
 		ld	a,l
 		cp	#00
 		jr	nz,appNext
-		
+
 appFirstCall	ld	a,d
 		or	e
 		jr	nz,appNext
@@ -106,4 +106,4 @@ checkEsc	db	#00
 
 appEnd	nop
 
-		SAVEBIN "install/bin/keyscan", appStart, appEnd-appStart
+		SAVEBIN "../../install/bin/keyscan", appStart, appEnd-appStart

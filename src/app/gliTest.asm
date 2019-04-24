@@ -12,7 +12,7 @@
 		include "drivers/drivers.h.asm"			; Список комманд Drivers API
 		include "libs/gli.h.asm"			; Список комманд Graphics Library
 
-appStart	
+appStart
 		db	#7f,"CLA"				; Command Line Application
 
 ;---------------------------------------
@@ -38,10 +38,10 @@ appStart
 		ld	hl,versionMsg
 		ld	a,printString
 		call	cliKernel
-		
+
 		ld	a,printRestore
 		jp	cliKernel
-	
+
 ;---------------------------------------
 versionMsg	db	16,cRestore
 		db	"Current version of Graphics Library is "
@@ -51,4 +51,4 @@ minorMsg	db	"--"
 
 appEnd	nop
 
-		SAVEBIN "install/bin/glitest", appStart, appEnd-appStart
+		SAVEBIN "../../install/bin/glitest", appStart, appEnd-appStart

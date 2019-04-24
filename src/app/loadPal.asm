@@ -12,7 +12,7 @@ palBufferSize	equ	2					; 2*512 = 1024 Размер буфера в блоках
 		include "system/api.h.asm"			; Список комманд CLi² API
 		include "system/errorcodes.asm"			; коды ошибок
 		include "drivers/drivers.h.asm"			; Список комманд Drivers API
-appStart	
+appStart
 		db	#7f,"CLA"				; Command Line Application
 								; На входе в HL адрес начала строки с параметрами
 		ex	de,hl
@@ -42,7 +42,7 @@ appStart
 		call	cliKernel
 		ld	hl,palFileError_1+1
 		ld	(hl),de
-		ex	de,hl	
+		ex	de,hl
 
 		ld	de,palBuffer
 		ld	b,palBufferSize
@@ -185,7 +185,7 @@ palInfo		ld	hl,palVersionMsg
 ;---------------------------------------------
 palVersionMsg	db	"Load palette v0.10",#00
 palCopyRMsg	db	"2013,2016 ",pCopy," Breeze\\\\Fishbone Crew",#00
-		
+
 palUsageMsg	db	#0d,15,csOk,"Usage: loadpal [switches] filename.pal",#0d
 		db	16,cRestore,"  -g n",15,csInfo,"\tgraphics palettes. Load palette for graphics screen N (default 1)"
 		db	16,cRestore,#0d,#00
@@ -206,9 +206,9 @@ keyTable	db	"-g"
 		db	#00
 
 		align 2						; !!! FIX адреса загрузки кратного 2м !!!
-		
+
 palBuffer	ds	palBufferSize,#00
 
 appEnd	nop
 
-		SAVEBIN "install/bin/loadpal", appStart, appEnd-appStart
+		SAVEBIN "../../install/bin/loadpal", appStart, appEnd-appStart

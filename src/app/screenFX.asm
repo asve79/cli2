@@ -3,7 +3,7 @@
 ; 2014,2016 © breeze/fishbone crew
 ;---------------------------------------
 ; screenFX - сборник эффектов для работы с экранами
-;--------------------------------------		
+;--------------------------------------
 		org	#c000-4
 
 		include "system/tsconf.h.asm"			; Список комманд TSCONF API
@@ -13,7 +13,7 @@
 		include "system/errorcodes.asm"			; коды ошибок
 		include "drivers/drivers.h.asm"			; Список комманд Drivers API
 
-appStart	
+appStart
 		db	#7f,"CLA"				; Command Line Application
 
 		ld	a,(hl)
@@ -46,7 +46,7 @@ fxSetScreen	ld	a,getNumberFromParams
 		ld	a,h
 		cp	#00
 		jp	nz,wrongParams
-		
+
 		ld	a,l
 		cp	#04
 		jr	c,fxSetScreen_0
@@ -67,7 +67,7 @@ fxFadeIn	call	preparePal
 		xor	a
 		ld	(hl),a
 		ldir
-		
+
 		ld	hl,emptyBuffer
 		ld	a,setPalNow
 		call	cliKernel
@@ -79,7 +79,7 @@ fxfiLoop	ld	b,2					; задержка
 fxfiWait	halt
  		djnz	$-1
 
-		call	incPal	
+		call	incPal
 		ld	hl,emptyBuffer
 		ld	a,setPalNow
 		call	cliKernel
@@ -101,7 +101,7 @@ fxFadeOut	call	preparePal
 		ld	hl,palBuffer
 		ld	a,setPalNow
 		call	cliKernel
-		
+
 		ld	b,25					; 25 цветов
 fxfoLoop	push	bc
 		call	decPal
@@ -123,7 +123,7 @@ preparePal	ld	hl,palBuffer				; буфер куда прочитать пали�
 fxScr_00	ld	b,#01					; номер экрана для которого надо прочитать палитру
 		ld	a,getGfxPalette
 		call	cliKernel
-		
+
 		halt
 vmMode		ld	b,#01
 		ld	c,#01					; не включать палитру
@@ -133,7 +133,7 @@ vmMode		ld	b,#01
 ;---------------
 decPal		ld	hl,palBuffer
 		ld	b,0					;512/2 = 256
-		
+
 decLoop		ld	a,(hl)					; B
 		; RRrrrGGgggBBbbb
 		and	%00011111				; взяли Blue
@@ -156,7 +156,7 @@ decSkip_00	ld	e,a					; сохранили Blue в E
 		sla	a
 		sla	a					; сместили 2 бита 3 раза влево залив нулями 2,1,0й
 		or	d					; полное Green
-		cp	#00					
+		cp	#00
 		jr	z,decSkip_01				; если уже 0 - ничего
 		dec	a					; уменьшили на 1
 decSkip_01	ld	c,a					; сохранили полное Green в C
@@ -165,13 +165,13 @@ decSkip_01	ld	c,a					; сохранили полное Green в C
 		and	%01111100
 		srl	a
 		srl	a					; сместили 2 бита вправо залив нулями 6,5й
-		cp	#00					
+		cp	#00
 		jr	z,decSkip_02				; если уже 0 - ничего
 		dec	a					; уменьшили на 1
 decSkip_02	sla	a
 		sla	a					; сместили 2 бита влево залив нулями 1,0й
 		ld	(hl),a					; сохранили по адресу в (HL)
-		ld	a,c					
+		ld	a,c
 		;	    GGggg
 		and	%00011000				; взяли старшую часть Green
 		srl	a
@@ -180,7 +180,7 @@ decSkip_02	sla	a
 		or	(hl)					; объединили с Red
 		ld	(hl),a					; сохранили Red + старшую часть Green
 
-		ld	a,c					
+		ld	a,c
 		;	    GGggg
 		and	%00000111				; взяли младшую часть Green
 		rrc	a
@@ -198,7 +198,7 @@ decSkip_02	sla	a
 ;---------------
 incPal		ld	hl,emptyBuffer
 		ld	b,0					;512/2 = 256
-		
+
 incLoop		push	hl
 		inc	h
 		inc	h
@@ -255,7 +255,7 @@ checkGreen_0	or	#00
 		or	d
 		push	af
 		ld	a,(currentInColor)					; полное Green
-checkGreen	cp	24					
+checkGreen	cp	24
 		jr	nc,incSkip_01				; если уже 24 - ничего
 		pop	af
 		inc	a
@@ -279,10 +279,10 @@ incSkip_01	pop	af
 		and	%01111100
 		srl	a
 		srl	a					; сместили 2 бита вправо залив нулями 6,5й
-		
+
 		push	af
 		ld	a,(currentInColor)
-checkRed	cp	24					
+checkRed	cp	24
 		jr	nc,incSkip_02				; если уже 24 - ничего
 		pop	af
 		inc	a
@@ -292,7 +292,7 @@ incSkip_02	pop	af
 		sla	a
 		sla	a					; сместили 2 бита влево залив нулями 1,0й
 		ld	(hl),a					; сохранили по адресу в (HL)
-		ld	a,c					
+		ld	a,c
 		;	    GGggg
 		and	%00011000				; взяли старшую часть Green
 		srl	a
@@ -301,7 +301,7 @@ incSkip_02	pop	af
 		or	(hl)					; объединили с Red
 		ld	(hl),a					; сохранили Red + старшую часть Green
 
-		ld	a,c					
+		ld	a,c
 		;	    GGggg
 		and	%00000111				; взяли младшую часть Green
 		rrc	a
@@ -383,5 +383,4 @@ palBuffer	ds	512,#00
 
 ; 		DISPLAY "decPal",/A,decPal
 
-		SAVEBIN "install/bin/screenfx", appStart, appEnd-appStart
-		
+		SAVEBIN "../../install/bin/screenfx", appStart, appEnd-appStart

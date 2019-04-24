@@ -11,7 +11,7 @@
 		include "system/errorcodes.asm"			; коды ошибок
 		include "drivers/drivers.h.asm"			; Список комманд Drivers API
 
-appStart	
+appStart
 		db	#7f,"CLA"				; Command Line Application
 
 		call	miceTestVer
@@ -69,7 +69,7 @@ micePlusXSkip	ld	de,rawXMsg
 ;---------------
 		ld	a,getMouseRawX
 		call	cliDrivers
-		
+
 		ld	de,rawXMsg+4
 		ld	a,char2str
 		call	cliKernel
@@ -99,7 +99,7 @@ micePlusYSkip	ld	de,rawYMsg
 ;---------------
 		ld	a,getMouseRawY
 		call	cliDrivers
-		
+
 		ld	de,rawYMsg+4
 		ld	a,char2str
 		call	cliKernel
@@ -126,10 +126,10 @@ micePlusYSkip	ld	de,rawYMsg
 micePlusWSkip	ld	de,rawWMsg
 		ld	a,char2str
 		call	cliKernel
-;---------------		
+;---------------
 		ld	a,getMouseRawW
 		call	cliDrivers
-		
+
 		ld	de,rawWMsg+4
 		ld	a,char2str
 		call	cliKernel
@@ -165,7 +165,7 @@ miceRSet	ld	(rightButtonMsg),a
 		ld	a,c
 miceMSet	ld	(middleButtonMsg),a
 		pop	af
-		
+
 		bit	0,a
 		jr	z,cursorType_2
 		ld	a,1
@@ -192,7 +192,7 @@ newCursorSet	ex	af,af'
 		ld	de,posXMsg
 		ld	a,int2str
 		call	cliKernel
-;---------------		
+;---------------
 		ld	a,getMouseY
 		call	cliDrivers
 
@@ -200,7 +200,7 @@ newCursorSet	ex	af,af'
 		ld	a,int2str
 		call	cliKernel
 
-;---------------		
+;---------------
 		ld	a,getMouseW
 		call	cliDrivers
 
@@ -234,19 +234,19 @@ miceStop	ld	a,editInit
 		ld	a,printRestore
 		jp	cliKernel
 ;---------------------------------------------
-miceTestRun	ld	hl,miceRunMsg			
+miceTestRun	ld	hl,miceRunMsg
 		ld	a,printString
 		jp	cliKernel
 
 ;---------------------------------------------
-miceTestVer	ld	hl,miceVersionMsg			
+miceTestVer	ld	hl,miceVersionMsg
 		ld	a,printAppNameString
 		call	cliKernel
 
 		ld	hl,miceCopyRMsg
 		ld	a,printCopyrightString
 		jp	cliKernel
-		
+
 ;---------------------------------------------
 miceVersionMsg	db	"Kempstone mouse test v0.16",#00
 miceCopyRMsg	db	"2013,2016 ",pCopy," Breeze\\\\Fishbone Crew",#0d,#00
@@ -303,7 +303,7 @@ posYMsg		db	"-----"
 
 		db	15,csFrames,", ",15,5,"W=",16,cRestore
 posWMsg		db	"-----"
-		
+
 		db	15,csFrames,"  ",16,cRestore
 timeCountMsg	db	"-----"
 		db	#00
@@ -312,4 +312,4 @@ timeCount	dw	#0000
 ;---------------------------------------------
 appEnd	nop
 
-		SAVEBIN "install/bin/micetest", appStart, appEnd-appStart
+		SAVEBIN "../../install/bin/micetest", appStart, appEnd-appStart

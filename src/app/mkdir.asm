@@ -3,7 +3,7 @@
 ; 2014,2016 © breeze/fishbone crew
 ;---------------------------------------
 ; mkdir - create directory
-;--------------------------------------		
+;--------------------------------------
 		org	#c000-4
 
 		include "system/constants.asm"			; Константы
@@ -11,7 +11,7 @@
 		include "system/errorcodes.asm"			; коды ошибок
 		include "drivers/drivers.h.asm"			; Список комманд Drivers API
 
-appStart	
+appStart
 		db	#7f,"CLA"				; Command Line Application
 
 		ld	a,(hl)
@@ -32,7 +32,7 @@ mkLoop		ld	a,(hl)
 		ld	a,(hl)
 		cp	#00
 		jr	z,checkDirName
-		
+
 		inc	b
 		ld	a,b
 		cp	12
@@ -121,4 +121,4 @@ errorMsg3	db	16,cRed,"Error: File ",pQuoteOpen,#00
 appEnd	nop
 ; 		DISPLAY "checkDirName",/A,checkDirName
 
-		SAVEBIN "install/bin/mkdir", appStart, appEnd-appStart
+		SAVEBIN "../../install/bin/mkdir", appStart, appEnd-appStart

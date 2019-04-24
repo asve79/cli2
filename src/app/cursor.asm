@@ -6,12 +6,18 @@
 ;---------------------------------------
 		org	#c000-4
 
+		ifdef OS_WINDOWS
+		include "system\constants.asm"			; Константы
+		include "system\api.h.asm"			; Список комманд CLi² API
+		include "system\errorcodes.asm"			; коды ошибок
+		include "drivers\drivers.h.asm"			; Список комманд Drivers API
+		else
 		include "system/constants.asm"			; Константы
 		include "system/api.h.asm"			; Список комманд CLi² API
 		include "system/errorcodes.asm"			; коды ошибок
 		include "drivers/drivers.h.asm"			; Список комманд Drivers API
-
-appStart	
+		endif
+appStart
 		db	#7f,"CLA"				; Command Line Application
 								; На входе в HL адрес начала строки с параметрами
 		ld	a,(hl)
@@ -67,7 +73,7 @@ showOk		pop	hl
 		jr	showCursor
 
 testHide	pop	hl
-		
+
 		ld	a,(hl)
 		call	lowerCase
 		cp	"h"
@@ -124,7 +130,7 @@ setScreen	ld	a,getNumberFromParams
 
 cSetScreen_0	ld	(showCursor+1),a
 		ld	(hideCursor+1),a
-		
+
 		ld	a,#fe					; Пропустить следующее значение
 		ret
 ;---------------
@@ -152,7 +158,7 @@ appShowInfo	call	appVer					; Вывод информации о програм�
 		call	appHelp
 		jp	appExit
 
-appVer		ld	hl,appVersionMsg			
+appVer		ld	hl,appVersionMsg
 		ld	a,printAppNameString
 		call	cliKernel
 
@@ -183,4 +189,4 @@ keyTable
 appEnd	nop
 ; 		DISPLAY "setScreen",/A,setScreen
 
-		SAVEBIN "install/bin/cursor", appStart, appEnd-appStart
+		SAVEBIN "../../install/bin/cursor", appStart, appEnd-appStart

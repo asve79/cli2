@@ -10,7 +10,7 @@
 		include	"cp866.asm"
 		include "../../system/ascii_keys.h.asm"
 		include "alt.h.asm"
-		
+
 sKeyMap
 		;        x8  x0  x9  x1  xA  x2  xB  x3  xC  x4  xD  x5  xE  x6  xF  x7
 
@@ -35,7 +35,7 @@ keyMap_E0
 
 
 
-		;        x8  x0  x9  x1  xA  x2  xB  x3  xC  x4  xD  x5  xE  x6  xF  x7	
+		;        x8  x0  x9  x1  xA  x2  xB  x3  xC  x4  xD  x5  xE  x6  xF  x7
 keyMap_0A	db	    #00,    aF9,    #00,    aF5,    aF3,    aF1,    aF2,    #00		; 0x		Таблица обычных клавиш
 		db	#00,   aF10,    aF8,    aF6,    aF4,    aTab,    "`",   #00
 		db	    #00,    #00,    #00,    #00,    #00,    "q",    "1",    #00		; 1x
@@ -99,7 +99,7 @@ keyMap_0C	db	    #00,    aF9,    #00,    aF5,    aF3,    aF1,    aF2,    #00		; 
 		;        x8  x0  x9  x1  xA  x2  xB  x3  xC  x4  xD  x5  xE  x6  xF  x7
 keyMap_1A	db	    #00,    aF9,    #00,    aF5,    aF3,    aF1,    aF2,    #00		; 0x		Таблица обычных клавиш (русская раскладка)
 		db	#00,   aF10,    aF8,    aF6,    aF4,   aTab,    re1,    #00
-		db	    #00,    #00,    #00,    #00,    #00,    rii,    "1",    #00		; 1x	
+		db	    #00,    #00,    #00,    #00,    #00,    rii,    "1",    #00		; 1x
 		db	#00,    #00,    rya,    ryi,    rf,     rc,     "2",    #00
 		db	    #00,    rs,     rch,     rv,     ru,    "4",    "3",    #00		; 2x
 		db	#00,    " ",     rm,     ra,     re,     rk,    "5",    #00
@@ -168,6 +168,6 @@ eKeyMap
 ; 	DISPLAY "eKeyMap = ",/A,eKeyMap
 ; 	DISPLAY "default.key size = ",/A,eKeyMap-sKeyMap
 
-	SAVEBIN "install/system/res/keymaps/default.key", sKeyMap, eKeyMap-sKeyMap
+	SAVEBIN "../../../install/system/res/keymaps/default.key", sKeyMap, eKeyMap-sKeyMap
 
 	ENDMODULE

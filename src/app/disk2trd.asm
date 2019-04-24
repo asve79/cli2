@@ -11,7 +11,7 @@
 		include "system/errorcodes.asm"			; коды ошибок
 		include "drivers/drivers.h.asm"			; Список комманд Drivers API
 
-appStart	
+appStart
 		db	#7f,"CLA"				; Идентификатор приложения CLA (Command Line Application)
 
 		ld	a,(hl)
@@ -27,7 +27,7 @@ appShowInfo	call	appVer				; Вывод информации о программ
 		call	appHelp
 		jp	appExit
 
-appVer		ld	hl,appVersionMsg			
+appVer		ld	hl,appVersionMsg
 		ld	a,printAppNameString
 		call	cliKernel
 
@@ -73,4 +73,4 @@ keyTable
 		db	#00
 appEnd	nop
 
-		SAVEBIN "install/bin/disk2trd", appStart, appEnd-appStart
+		SAVEBIN "../../install/bin/disk2trd", appStart, appEnd-appStart

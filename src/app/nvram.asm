@@ -11,9 +11,9 @@
 		include "system/errorcodes.asm"			; коды ошибок
 		include "drivers/drivers.h.asm"			; Список комманд Drivers API
 
-appStart	
+appStart
 		db	#7f,"CLA"				; Command Line Application
-		
+
 		xor	a
 		ld	(nvramPos),a
 
@@ -37,7 +37,7 @@ appStart
 		ld	a,enableNvram
 		call	cliKernel
 		pop	af
-		
+
 		cp	#ff
 		jp	z,nvramShowInfo				; Выход. Вывод информации о программе
 
@@ -48,7 +48,7 @@ nvramShowInfo	call	nvramVer				; Вывод информации о програ
 		call	nvramHelp
 		jp	nvramExit
 
-nvramVer	ld	hl,nvramVersionMsg			
+nvramVer	ld	hl,nvramVersionMsg
 		ld	a,printAppNameString
 		call	cliKernel
 
@@ -87,7 +87,7 @@ nvramShowLoop	push	af
 		ex	af,af'
 		ld	a,mult16x8
 		call	cliKernel
-		
+
 		ld	a,l
 		ex	af,af'
 		ld	de,nvramAddr
@@ -103,7 +103,7 @@ nvramShowLoop2	push	bc
 		ex	af,af'
 		ld	a,nvRamGetData
 		call	cliKernel
-		
+
 		push	af
 
 		ld	hl,nvramDump
@@ -115,7 +115,7 @@ nvramShowLoop2	push	bc
 		ld	d,#00
 		add	hl,de
 		ex	de,hl
-		
+
 		pop	af
 		push	af
 		ex	af,af'
@@ -189,7 +189,7 @@ nvramClearLoop	push	af
 		inc	a
 		cp	#f0
 		jr	nz,nvramClearLoop
-		
+
 		ld	a,nvRamClose
 		call	cliKernel
 
@@ -228,7 +228,7 @@ nvramGet	ld	a,getHexFromParams
 		call	cliKernel
 
 		pop	de
-		
+
 		ld	a,#fe					; Пропустить следующее значение
 		ret
 
@@ -260,7 +260,7 @@ wrongParams	ld	hl,wrongParamsMsg
 ;---------------------------------------------
 nvramVersionMsg	db	"NVRAM (CMOS) Info & tool v0.04",#00
 nvramCopyRMsg	db	"2013,2015 ",pCopy," Breeze\\\\Fishbone Crew",#00
-		
+
 nvramUsageMsg	db	#0d,15,csOk,"Usage: nvram switches",#0d
 		db	16,cRestore,"  -d ",15,csInfo,"\t\tdump. show nvram dump",#0d
 		db	16,cRestore,"  -g #nn",15,csInfo,"\tget value. read value from nvram's cell at #nn (hex)",#0d
@@ -327,4 +327,4 @@ nvramStrPos	db	#00
 appEnd	nop
 ; 		DISPLAY "nvramGet",/A,nvramGet
 
-		SAVEBIN "install/bin/nvram", appStart, appEnd-appStart
+		SAVEBIN "../../install/bin/nvram", appStart, appEnd-appStart

@@ -3,15 +3,21 @@
 ; 2014,2016 © breeze/fishbone crew
 ;---------------------------------------
 ; testsave - тестовое приложение для создания файла и записи
-;--------------------------------------		
+;--------------------------------------
 		org	#c000-4
 
+		ifdef OS_WINDOWS
+		include "system\constants.asm"			; Константы
+		include "system\api.h.asm"			; Список комманд CLi² API
+		include "system\errorcodes.asm"			; коды ошибок
+		include "drivers\drivers.h.asm"			; Список комманд Drivers API
+		else
 		include "system/constants.asm"			; Константы
 		include "system/api.h.asm"			; Список комманд CLi² API
 		include "system/errorcodes.asm"			; коды ошибок
 		include "drivers/drivers.h.asm"			; Список комманд Drivers API
-
-appStart	
+		endif
+appStart
 		db	#7f,"CLA"				; Command Line Application
 
 		ld	a,(hl)
@@ -32,7 +38,7 @@ mkLoop		ld	a,(hl)
 		ld	a,(hl)
 		cp	#00
 		jr	z,checkFileName
-		
+
 		inc	b
 		ld	a,b
 		cp	12
@@ -71,7 +77,7 @@ checkFileName	ld	hl,filename
 writeContent	ld	hl,fileContent
 		;ld	a,			; ???
 		;ld	b,#01			; размер в блоках по 512b
-		;call	cliKernel		
+		;call	cliKernel
 		ret
 
 ;---------------
@@ -134,5 +140,8 @@ fileContent	db	"This is test file content!"
 appEnd	nop
 
 ; 		DISPLAY "checkFileName",/A,checkFileName
-
+		ifdef	OS_WINDOWS
+		SAVEBIN "..\..\install\bin\testsave", appStart, appEnd-appStart
+		else
 		SAVEBIN "install/bin/testsave", appStart, appEnd-appStart
+		endif

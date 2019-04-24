@@ -11,7 +11,7 @@
 		include "system/errorcodes.asm"			; коды ошибок
 		include "drivers/drivers.h.asm"			; Список комманд Drivers API
 
-appStart	
+appStart
 		db	#7f,"CLA"				; Command Line Application
 
 		ld	a,getCurrentDate
@@ -23,7 +23,7 @@ appStart
 		ex	af,af'
 		ld	a,getDayNameByNumber
 		ld	de,dateMsg				; название дня недели
-		call	cliKernel		
+		call	cliKernel
 
 		pop	de
 		ld	a,d
@@ -103,7 +103,7 @@ appStart
 		ld	hl,dateMsg
 		ld	a,printString
 		call	cliKernel
-			
+
 		xor	a					; no error, clean exit!
 		ret
 
@@ -115,4 +115,4 @@ dateMsg		db	"             :  :       ",#0d,#00
 
 appEnd	nop
 
-		SAVEBIN "install/bin/date", appStart, appEnd-appStart
+		SAVEBIN "../../install/bin/date", appStart, appEnd-appStart

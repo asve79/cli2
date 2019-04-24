@@ -6,12 +6,19 @@
 ;---------------------------------------
 		org	#c000-4
 
+		ifdef OS_WINDOWS
+		include "system\constants.asm"			; Константы
+		include "system\api.h.asm"			; Список комманд CLi² API
+		include "system\errorcodes.asm"			; коды ошибок
+		include "drivers\drivers.h.asm"			; Список комманд Drivers API
+		else
 		include "system/constants.asm"			; Константы
 		include "system/api.h.asm"			; Список комманд CLi² API
 		include "system/errorcodes.asm"			; коды ошибок
 		include "drivers/drivers.h.asm"			; Список комманд Drivers API
+		endif
 
-appStart	
+appStart
 		db	#7f,"CLA"				; Command Line Application
 
 		ld	a,#00
@@ -21,7 +28,7 @@ appLoop		push	af
 		ld	de,testNumber
 		ld	a,char2hex
 		call	cliKernel
-		
+
 		ld	a,(testNumber)
 		ld	(testColorN),a
 		ld	a,(testNumber+1)
@@ -34,10 +41,10 @@ appLoop		push	af
 		inc	a
 		cp	#10
 		jr	nz,appLoop
-		
+
 		xor	a					; no error, clean exit!
 		ret
-	
+
 testMsg		db	16,cRestore,"this is test for the long line with number #"
 testNumber	db	"00 and ",16
 testColor	db	#00,"color #"
@@ -46,4 +53,4 @@ testColorN	db	"00",#0d,16,cRestore
 
 appEnd	nop
 
-		SAVEBIN "install/bin/test", appStart, appEnd-appStart
+		SAVEBIN "../../install/bin/test", appStart, appEnd-appStart

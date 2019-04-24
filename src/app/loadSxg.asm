@@ -8,7 +8,7 @@
 sxgBufferSize	equ	16					; 16*512 = 8192 Размер буфера в блоках по (512кб)
 
 		org	#c000-4
-		
+
 		include "system/constants.asm"			; Константы
 		include "system/api.h.asm"			; Список комманд CLi² API
 		include "system/errorcodes.asm"			; коды ошибок
@@ -46,7 +46,7 @@ appStart
 
 		cp	#ff
 		jp	z,sxgShowInfo				; Выход. Вывод информации о программе
-		
+
 		ld	a,(hl)
 		cp	#00
 		jp	nz,sxgContinue
@@ -78,7 +78,7 @@ sxgContinue	ex	de,hl
 		ld	a,(hl)
 		cp	#7f					; Сигнатура #7f + SXG
 		jp	nz,wrongFile
-		
+
 		inc	hl
 		ld	a,(hl)
 		cp	"S"
@@ -139,7 +139,7 @@ sxgContinue	ex	de,hl
 		pop	hl
 
 
-		
+
 ;---------------
 		inc	hl					; Тип упаковки данных (#00 - не пакованы)
 		ld	a,(hl)
@@ -228,7 +228,7 @@ clrColor	ld	c,#00					; номер цвета
 		rr	c
 		jr	c,skipImageDec
 
-skipImageDec	
+skipImageDec
 		ld	(imageWidth),bc
 		ld	(countWidth),bc
 
@@ -283,7 +283,7 @@ gPalNum		ld	b,#01					; Номер экрана для кого грузить �
 		add	hl,bc					; Начало данных bitmap
 ;---------------
 		call	setVBank
-		
+
 		ld	de,#0000				; Начало экрана
 
 loadSxgLoop	ld	a,(hl)
@@ -291,7 +291,7 @@ loadSxgLoop	ld	a,(hl)
 		inc	de
 		inc	hl
 
-		ld	bc,(countWidth)				
+		ld	bc,(countWidth)
 		dec	bc					; Уменьшаем счётчик ширины
 		ld	(countWidth),bc
 		ld	a,b
@@ -305,7 +305,7 @@ loadSxgLoop	ld	a,(hl)
 widthLoop	ld	a,b					; Добиваем линию до 512
 		cp	#02
 		jr	z,noNeedWidth
- 		
+
  		inc	bc
  		inc	de
 		jr	widthLoop
@@ -348,12 +348,12 @@ loadSxgEnd	ex	af,af'
 		cp	eFileEnd
 		jr	nz,loadSxgLoop
 
-loadSxgStop	
-;---------------------------------------------	
+loadSxgStop
+;---------------------------------------------
 setViewerMode	ld	a,#00
 		cp	#01
 		jr	nz,loadSxgExit				; если не задан режим вьювера - просто выход
-		
+
 		ld	hl,viewerModeMsg
 		ld	a,printOkString
 		call	cliKernel
@@ -406,7 +406,7 @@ sxgLeftKey	ld	a,moveScreenLeft
 		jr	sxgMoveNow
 
 sxgRightKey	ld	a,moveScreenRight
-		
+
 sxgMoveNow	push	af
 		ld	a,(moveStep)
 		ex	af,af'
@@ -424,7 +424,7 @@ sxgShowInfo	call	sxgLoaderVer				; Вывод информации о прогр
 		call	sxgLoaderHelp
 		jp	loadSxgExit
 
-sxgLoaderVer	ld	hl,sxgVersionMsg			
+sxgLoaderVer	ld	hl,sxgVersionMsg
 		ld	a,printAppNameString
 		call	cliKernel
 
@@ -474,7 +474,7 @@ sxgType		ld	b,#01
 		call	cliKernel
 		pop	af
 		ld	hl,sxgTypeZXMsg
-		cp	#00					
+		cp	#00
 		jr	z,setImageMode_0
 		ld	hl,sxgType16Msg
 		cp	#01
@@ -548,7 +548,7 @@ sxgAlignX	ld	a,#00
 		cp	#68					; #0168 = 360
 		jr	c,sxgAlignX_0
 		push	hl,de,bc
-		ld	hl,#0000	
+		ld	hl,#0000
 		jr	sxgOffX
 
 sxgAlignX_0	push	hl,de,bc
@@ -575,7 +575,7 @@ sxgAlignY	ld	a,#00
 		cp	#20					; #0120 = 288
 		jr	c,sxgAlignY_0
 		push	hl,de,bc
-		ld	hl,#0000	
+		ld	hl,#0000
 		jr	sxgOffY
 
 sxgAlignY_0	push	hl,de,bc
@@ -632,7 +632,7 @@ countHeight	dw	#0000
 
 sxgVersionMsg	db	"SXG (Spectrum eXtended Graphics) file loader v0.08",#00
 sxgCopyRMsg	db	"2013,2016 ",pCopy," Breeze\\\\Fishbone Crew",#00
-		
+
 sxgUsageMsg	db	#0d,15,csOk,"Usage: loadsxg [switches] filename.sxg",#0d
 		db	16,cRestore,"  -vm ",15,csInfo,"\tviewer mode. activate viewer mode after image has loaded",#0d
 		db	16,cRestore,"  -sp n",15,csInfo,"\tspeed. set move speed in viewer mode (default 2px)",#0d
@@ -716,4 +716,4 @@ sxgBuffer	nop
 ; 		DISPLAY "skipImageDec",/A,skipImageDec
 ; 		DISPLAY "sxgShowInfo",/A,sxgShowInfo
 
-		SAVEBIN "install/bin/loadsxg", appStart, appEnd-appStart
+		SAVEBIN "../../install/bin/loadsxg", appStart, appEnd-appStart

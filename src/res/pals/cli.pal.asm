@@ -20,6 +20,6 @@ taPal								; Зарезервировано для дальнейшего ра
 
 		include "default.asm"
 
-		SAVEBIN "install/system/res/pals/default.pal", sPal, ePal-sPal
+		SAVEBIN "../../../install/system/res/pals/default.pal", sPal, ePal-sPal
 
 		ENDMODULE

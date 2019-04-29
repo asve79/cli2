@@ -24,8 +24,8 @@
 
 	define	OS_WINDOWS=1
 
- 	define buildSexyBoot				; Сборка загрузчика системы boot.$c
-; 	define buildKernel				; Сборка всей системы
+; 	define buildSexyBoot				; Сборка загрузчика системы boot.$c
+ 	define buildKernel				; Сборка всей системы
 ; 	define buildRes					; Сборка файлов ресурсов (Pal, Cur, Fnt, keymap)
 ; 	define buildTest				; Сборка тестового приложения test
 ; 	define buildEcho				; Сборка команды echo

@@ -10,5 +10,6 @@ Command Line Interface 2
 
 # TODO
 
- - [ ] Запуск TAP
- - [ ] Запуск TRD
+- [ ] команда rmdir
+- [ ] Запуск TAP
+- [ ] Запуск TRD

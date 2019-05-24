@@ -54,7 +54,7 @@ _opSet_begin	ex	de,hl					; в HL - начало строки
 		jr	_opSetSkip2
 
 _opSetSkip	push	hl
-		cp	"\""
+		cp	132 			;Код двойной кавычки
 		jr	z,_opSetString
 		cp	"u"
 		jr	nz,_opSetSkip1
@@ -121,7 +121,7 @@ _opSetStrPos	ld	b,#00
 
 _oss_loop	inc	hl
 		ld	a,(hl)
-		cp	"\""
+		cp	132 			;Код двойной кавычки
 		jr	z,_oss_end
 		cp	#00
 		jp	z,_printErrParams

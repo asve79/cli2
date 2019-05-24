@@ -13,7 +13,7 @@ _pt3init	call	storeRam0
 		call	reStoreRam0
 		pop	af
 		ret
-		
+
 ;---------------------------------------
 _pt3play	call	storeRam0
 		ld	a,ayBank
@@ -28,15 +28,15 @@ _pt3mute	ld	a,(enableAy+1)
 		jp	UNI.Mute
 
 ;---------------------------------------
-_pt3loopEnable	
+_pt3loopEnable
 		ret
 
 ;---------------------------------------
-_pt3loopDisable	
+_pt3loopDisable
 		ret
 
 ;---------------------------------------
-_pt3setType	
+_pt3setType
 		ret
 
 ;---------------------------------------

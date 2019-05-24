@@ -1,0 +1,57 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "CLI Build",
+            "type": "shell",
+            "windows": {
+                "command": "_make.bat"
+            },
+            "linux": {
+                "command": "_make.sh"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true
+            },
+            "problemMatcher" : {
+                "fileLocation": ["relative", "${workspaceFolder}"],
+                "pattern": {
+                    //"regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "regexp" : "([0-9a-zA-Z._-]+).(\\d+).:\\serror:\\s(.*)",
+                    "file": 1,
+                    "line": 2,
+                    "message": 3
+                }
+            }
+        },
+        {
+            "label": "CLI Run",
+            "type": "shell",
+            "windows": {
+                "command": "_run.bat"
+            },
+            "linux": {
+                "command": "_run.sh"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true
+            },
+            "problemMatcher" : []
+        }
+
+    ]
+}
